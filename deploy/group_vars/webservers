@@ -1,0 +1,8 @@
+---
+python_version: python3
+ansistrano_deploy_to: /mnt/persist/www/leacards
+database_name: leacards
+database_user: leacards
+project_slug: leacards
+domain_stage: stage.example.com
+domain_prod: example.com
