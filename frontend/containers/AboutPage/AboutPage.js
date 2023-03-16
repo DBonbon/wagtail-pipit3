@@ -10,6 +10,7 @@ class AboutPage extends PureComponent {
 
     static defaultProps = {
         companyName: '',
+        image:'',
     };
 
     static propTypes = {
@@ -17,10 +18,11 @@ class AboutPage extends PureComponent {
     };
 
     render() {
-        const { companyName } = this.props;
+        const { companyName, image } = this.props;
         return (
             <div className={s['AboutPage']}>
                 <p>Company name: {companyName}</p>
+                <p>Company name: {image.src}</p>
             </div>
         );
     }

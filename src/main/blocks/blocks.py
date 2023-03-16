@@ -29,12 +29,22 @@ class CustomRichTextBlock(RichTextBlock):
         return expand_db_html(value.source)
 
 
-"""class CustomImageChooserBlock(ImageChooserBlock):
+from wagtail.images.blocks import ImageChooserBlock
+
+from main.fields.fields import ImageRenditionField
+#from wagtail.images.api.fields import ImageRenditionField
+#from rest_framework.fields import Field
+
+class CustomRichTextBlock(RichTextBlock):
+    def get_api_representation(self, value, context=None):
+        return expand_db_html(value.source)
+
+class CustomImageChooserBlock(ImageChooserBlock):
     def get_api_representation(self, value, context=None):
         return ImageRenditionField(
             ["width-512", "width-1024", "width-1536"]
         ).to_representation(value)
-"""
+
 
 SPEECH_TYPES = (
         ('verb', 'Verb'),
@@ -50,7 +60,7 @@ SPEECH_TYPES = (
 
 class CardBlock(blocks.StructBlock):
     """Basic game block that contains exactly 4 cards"""
-    image = ImageChooserBlock(required=False, null=True, blank=True, label="image")
+    image = CustomImageChooserBlock(required=False, null=True, blank=True, label="image",)
     card_title = CharBlock(label="Card Title")
     card_subtitle = CharBlock(label="Card Subtitle", required=False, help_text="another text string can be used as hint, En translation, etc'")
 

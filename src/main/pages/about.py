@@ -13,9 +13,20 @@ class AboutPage(HeadlessPreviewMixin, BasePage):
         null=True,
         verbose_name=_("Company name"),
     )
+    image = models.ForeignKey(
+        "customimage.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text=_(
+            "If you want to override the image used on Facebook for"
+        ),
+        related_name="+",
+    )
 
     content_panels = BasePage.content_panels + [
         FieldPanel("company_name"),
+        FieldPanel("image"),
     ]
 
     extra_panels = BasePage.extra_panels

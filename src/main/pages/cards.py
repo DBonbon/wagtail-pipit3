@@ -1,5 +1,5 @@
 from django.db import models
-from main.blocks.blocks import CardBlock, GameBlock
+from main.blocks.blocks import CardBlock, GameBlock, CustomImageChooserBlock
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel
 from wagtail_headless_preview.models import HeadlessPreviewMixin

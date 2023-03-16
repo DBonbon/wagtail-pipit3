@@ -154,7 +154,7 @@ AUTH_USER_MODEL = "customuser.User"
 
 # Wagtail
 WAGTAIL_SITE_NAME = "Company-Project"
-#WAGTAILIMAGES_IMAGE_MODEL = "customimage.CustomImage"
+WAGTAILIMAGES_IMAGE_MODEL = "customimage.CustomImage"
 WAGTAILDOCS_DOCUMENT_MODEL = "customdocument.CustomDocument"
 WAGTAIL_ALLOW_UNICODE_SLUGS = False
 

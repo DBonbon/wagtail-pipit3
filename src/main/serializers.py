@@ -55,3 +55,5 @@ class SeoSerializer(serializers.ModelSerializer):
             return None
 
         return f"{root_url}{image}"
+
+

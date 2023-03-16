@@ -22,6 +22,9 @@ cd Acme-Blog/frontend
 npm run storybook
 http://localhost:3001
 
+API
+http://localhost:8081/wt/api/nextjs/v1/page_by_path/?html_path=/'SLUG_PAGE
+
 docker reset db:
 docker-compose down --volumes
 docker-compose down --rmi all --volume
@@ -32,3 +35,5 @@ docker rm -f 6f391dc79a4c --> add the container id to be deleted
 docker-compose exec python ./manage.py makemigrations
 docker-compose exec python ./manage.py migrate
 docker-compose exec python ./manage.py makemigrations && docker-compose exec python ./manage.py migrate
+
+
