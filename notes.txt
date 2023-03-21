@@ -2,8 +2,6 @@ docker-compose exec python ./manage.py new_page --name=Cards
 docker-compose exec python ./manage.py makemigrations
 docker-compose exec python ./manage.py migrate
 
-docker-compose exec python ./manage.py makemigrations && docker-compose exec python ./manage.py migrate
-
 
 frontend new page:
 npm run new:container AboutPage
@@ -36,4 +34,75 @@ docker-compose exec python ./manage.py makemigrations
 docker-compose exec python ./manage.py migrate
 docker-compose exec python ./manage.py makemigrations && docker-compose exec python ./manage.py migrate
 
+
+docker-compose exec python ./manage.py new_page --name=ProductList
+
+
+
+I try to replicate the code and with Product=ArticlePage model. The page is created but my API has not Product/ArticlePage data.
+
+I also note some slight, potential, semantics issues with the routable code. I sent a separate pull request, in case you find it relavant.
+
+Could you kindly advise what am I doing with the code?
+
+pages/productlist.py:
+class ProductListPage(HeadlessPreviewMixin, RoutablePageMixin, BasePage):
+    extra_panels = BasePage.extra_panels
+    serializer_class = "main.pages.ProductListPageSerializer"
+    #serializer_class = "main.pages.ProductListSerializer"
+
+    objects: PageManager
+
+    class Meta:
+        verbose_name = _("ProductList")
+
+    @route(r'^$')
+    def index_route(self, request, *args, **kwargs):
+        data = self.get_component_data({"request": request})
+        # Decide response depending if called through api or wagtail routing
+        response_cls = Response if isinstance(request, Request) else JsonResponse
+        return response_cls(data)
+
+    @route(r'^articles/(?P<slug>.+)/$')
+    def product_detail(self, request, slug=None, *args, **kwargs):
+        article = get_object_or_404(Article, slug=slug)
+
+        context = {"request": request, "article": article}
+        data = self.get_component_data(
+            context=context,
+            component_name="Article",
+            serializer_cls="main.pages.ArticleSerializer",
+        )
+
+        # Decide response depending if called through api or wagtail routing
+        response_cls = Response if isinstance(request, Request) else JsonResponse
+        return response_cls(data)
+
+
+
+# main/pages/productlist_serializer.py
+from .base_serializer import BasePageSerializer
+from . import ProductListPage
+from .article_serializer import ArticlePageSerializer
+from rest_framework import serializers
+
+
+class ProductListPageSerializer(BasePageSerializer):
+    class Meta:
+        model = ProductListPage
+        fields = BasePageSerializer.Meta.fields
+
+
+class ProductListDetailSerializer(ProductListPageSerializer):
+    article = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProductListPage
+        fields = ProductListPageSerializer.Meta.fields + [
+            "article",
+        ]
+
+    def get_product(self, _page):
+        article = self.context["article"]
+        return ArticlePageSerializer(article).data
 

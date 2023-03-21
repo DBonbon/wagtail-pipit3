@@ -1,9 +1,8 @@
 from collections import OrderedDict
 
 from rest_framework.fields import Field
-from wagtail.core.rich_text import expand_db_html
+from wagtail.rich_text import expand_db_html
 from wagtail.images.models import SourceImageIOError
-
 
 class CustomRichTextField(Field):
     def to_representation(self, value):

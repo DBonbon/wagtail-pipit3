@@ -22,6 +22,7 @@ class CardsPageSerializer(BasePageSerializer):
             "min_recommended_age",
             "max_recommended_age",
             "language",
+            "cards",
         ]
 
     def get_intro(self, page):
