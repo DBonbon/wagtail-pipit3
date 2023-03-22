@@ -9,4 +9,6 @@ export default {
     PureHtmlPage: dynamic(() => import('./PureHtmlPage')),
     AboutPage: dynamic(() => import('./AboutPage')),
     CardsPage: dynamic(() => import('./CardsPage')),
+    GamePage: dynamic(() => import('./GamePage')),
+    BlogPage: dynamic(() => import('./BlogPage')),
 };

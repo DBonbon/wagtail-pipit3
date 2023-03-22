@@ -20,4 +20,8 @@
     top: 50%;
     transform: translateY(-50%);
     right: 10px;
+    fill:orange;
 }
+.Logo path {
+    stroke-width:5px;
+    }

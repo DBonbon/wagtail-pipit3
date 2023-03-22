@@ -7,6 +7,9 @@ docker-compose exec python ./manage.py makemigrations && docker-compose exec pyt
 
 frontend new page:
 npm run new:container AboutPage
+Create new componenet>
+npm run new Button
+
 
 cd Acme-Blog
 docker-compose up

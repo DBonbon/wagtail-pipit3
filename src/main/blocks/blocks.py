@@ -23,18 +23,53 @@ from wagtail.images.blocks import ImageChooserBlock
 from django.conf import settings
 from typing import Any, Dict, Optional
 #from main.fields.fields import ImageRenditionField
+from wagtail.api import APIField
+from main.pages.base import BasePage
 
 class CustomRichTextBlock(RichTextBlock):
     def get_api_representation(self, value, context=None):
         return expand_db_html(value.source)
 
 
-"""class CustomImageChooserBlock(ImageChooserBlock):
+from wagtail.images.blocks import ImageChooserBlock
+
+#from main.fields.fields import ImageRenditionField
+#from wagtail.images.api.fields import ImageRenditionField
+from rest_framework.fields import Field
+from rest_framework import serializers
+
+
+class CustomRichTextBlock(RichTextBlock):
     def get_api_representation(self, value, context=None):
-        return ImageRenditionField(
-            ["width-512", "width-1024", "width-1536"]
-        ).to_representation(value)
-"""
+        return expand_db_html(value.source)
+
+class CustomImageChooserBlock(ImageChooserBlock):
+    def get_api_representation(self, value, context=None):
+        def get_api_representation(self, value, context=None):
+            return ImageRenditionField(
+                ["width-512", "width-1024", "width-1536"]
+            ).to_representation(value)
+
+
+class WagtailImageSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BasePage
+        fields = ['title', 'url']
+
+    def get_url(self, obj):
+        return obj.get_rendition('max-1200x1200').url
+
+
+###############################
+# BLOCKS
+###############################
+
+# Used for image chooser in custom StreamField blocks, exposes url to API
+class APIImageChooserBlock(ImageChooserBlock):
+    def get_api_representation(self, value, context=None):
+        return WagtailImageSerializer(context=context).to_representation(value)
 
 SPEECH_TYPES = (
         ('verb', 'Verb'),
@@ -54,9 +89,27 @@ class CardBlock(blocks.StructBlock):
     card_title = CharBlock(label="Card Title")
     card_subtitle = CharBlock(label="Card Subtitle", required=False, help_text="another text string can be used as hint, En translation, etc'")
 
-    """class Meta:
+
+
+"""class CardBlock(blocks.StructBlock):
+    ""Basic game block that contains exactly 4 cards""
+    image = CustomImageChooserBlock(required=False, null=True, blank=True,)
+    #image1 = APIImageChooserBlock(required=False, null=True, blank=True, )
+    card_title = CharBlock(label="Card Title")
+    card_subtitle = CharBlock(label="Card Subtitle", required=False, help_text="another text string can be used as hint, En translation, etc'")
+
+    @property
+    def block_image(self):
+        return self.image
+
+    api_fields = [
+        APIField('block_image'),
+        APIField('feed_image_thumbnail', serializer=ImageRenditionField('fill-100x100', source='block_image')),
+    ]
+
+    class Meta:
         template = 'cms/card_block.html'
-        icon = 'list-ol'"""
+        icon = 'list-ol"""
 
 class GameBlock(blocks.StreamBlock):
     """Game unit which contains a un/limited niumber of 4 card units."""
@@ -75,6 +128,16 @@ class TextAndButtonsBlock(blocks.StructBlock):
     buttons = blocks.ListBlock(ButtonBlock())
     mainbutton = ButtonBlock()
 
+
+class ImageWithTextBlock(blocks.StructBlock):
+    image = APIImageChooserBlock(required=True)
+    caption = blocks.CharBlock(required=False)
+    credit_text = blocks.CharBlock(required=False)
+    credit_link = blocks.URLBlock(required=False)
+
+    class Meta:
+        icon = 'image'
+        label = 'Image'
 """"
 card group min max 4 elements
 
