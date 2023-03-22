@@ -10,6 +10,9 @@ npm run new:container AboutPage
 Create new componenet>
 npm run new Button
 
+storybook:
+npm run storybook
+
 
 cd Acme-Blog
 docker-compose up

@@ -1,9 +1,17 @@
 // import PropTypes from 'prop-types';
+import Link from 'next/link';
+import Head from 'next/head';
+import Image from 'next/image';
 import s from './Layout.module.css';
+import utilStyles from '../../styles/utils.module.css';
+import Logo from '../../public/img/logo-no-background.svg';
+import { Card, Text } from "@nextui-org/react";
 
-const Layout = ({ children, home }) => {
-    return return (
-    <div className={styles.container}>
+
+export const siteTitle = 'Next.js Sample Website';
+
+const Layout = ({text, name, children, home}) => (
+    <div className={s.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -19,12 +27,12 @@ const Layout = ({ children, home }) => {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
+      <header className={s.header}>
         {home ? (
           <>
             <Image
               priority
-              src="/images/profile.jpg"
+              src="/img/profile.jpg"
               className={utilStyles.borderCircle}
               height={144}
               width={144}
@@ -37,7 +45,7 @@ const Layout = ({ children, home }) => {
             <Link href="/">
               <Image
                 priority
-                src="/images/profile.jpg"
+                src="/img/profile.jpg"
                 className={utilStyles.borderCircle}
                 height={108}
                 width={108}
@@ -52,15 +60,27 @@ const Layout = ({ children, home }) => {
           </>
         )}
       </header>
+
+      <Card
+      isPressable
+      isHoverable
+      variant="bordered"
+      css={{ mw: "400px" }}
+    >
+      <Card.Body>
+        <Text>A pressable card.</Text>
+      </Card.Body>
+    </Card>
+
+
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <div className={s.backToHome}>
           <Link href="/">← Back to home</Link>
         </div>
       )}
     </div>
-  );
-};
+);
 
 Layout.propTypes = {};
 
