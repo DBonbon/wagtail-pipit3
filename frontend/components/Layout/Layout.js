@@ -1,14 +1,15 @@
 // import PropTypes from 'prop-types';
-import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import s from './Layout.module.css';
 import utilStyles from '../../styles/utils.module.css';
 import Logo from '../../public/img/logo-no-background.svg';
-import { Card, Text } from "@nextui-org/react";
+import { Avatar } from '@nextui-org/react';
+import { Navbar, Button, Link, Text, Card, Radio } from "@nextui-org/react";
 
 
 export const siteTitle = 'Next.js Sample Website';
+
 
 const Layout = ({text, name, children, home}) => (
     <div className={s.container}>
@@ -27,6 +28,26 @@ const Layout = ({text, name, children, home}) => (
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+
+
+<Navbar>
+        <Navbar>
+
+          <Text color="inherit" hideIn="xs">
+            ACME
+          </Text>
+        </Navbar>
+
+        <Navbar>
+
+          <Navbar>
+            <Button auto flat as={Link} href="#">
+              Sign Up
+            </Button>
+          </Navbar>
+        </Navbar>
+      </Navbar>
+
       <header className={s.header}>
         {home ? (
           <>
@@ -60,7 +81,12 @@ const Layout = ({text, name, children, home}) => (
           </>
         )}
       </header>
-
+        <Avatar
+          squared
+          text="Junior" />
+          <Avatar
+          squared
+          src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
       <Card
       isPressable
       isHoverable
