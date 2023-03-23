@@ -1,17 +1,18 @@
 // import PropTypes from 'prop-types';
 import Head from 'next/head';
+import Link from 'next/link';
 import Image from 'next/image';
+import {AcmeLogo} from '../AcmeLogo/AcmeLogo.js'
 import s from './Layout.module.css';
 import utilStyles from '../../styles/utils.module.css';
 import Logo from '../../public/img/logo-no-background.svg';
 import { Avatar } from '@nextui-org/react';
-import { Navbar, Button, Link, Text, Card, Radio } from "@nextui-org/react";
-
+import { Navbar, Button, Text, Card, Radio } from "@nextui-org/react";
 
 export const siteTitle = 'Next.js Sample Website';
 
 
-const Layout = ({text, name, children, home}) => (
+const Layout = ({name, children, home}) => (
     <div className={s.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
@@ -30,15 +31,28 @@ const Layout = ({text, name, children, home}) => (
       </Head>
 
 
+
+
+
+
 <Navbar>
         <Navbar>
-
-          <Text color="inherit" hideIn="xs">
+        <Navbar.Brand>
+          <AcmeLogo />
+          <Avatar
+          squared
+          src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
+          <p color="inherit" hideIn="xs">
             ACME
-          </Text>
-        </Navbar>
+          </p>
+        </Navbar.Brand>
 
-        <Navbar>
+        <Navbar.Content hideIn="xs">
+          <Navbar.Link href="#">Features</Navbar.Link>
+          <Navbar.Link isActive href="#">Customers</Navbar.Link>
+          <Navbar.Link href="#">Pricing</Navbar.Link>
+          <Navbar.Link href="#">Company</Navbar.Link>
+        </Navbar.Content>
 
           <Navbar>
             <Button auto flat as={Link} href="#">
