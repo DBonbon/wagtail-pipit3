@@ -111,11 +111,12 @@ WSGI_APPLICATION = "pipit.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": get_env("DATABASE_NAME", required=True),
-        "USER": get_env("DATABASE_USER", required=True),
-        "PASSWORD": get_env("DATABASE_PASSWORD", required=True),
-        "HOST": get_env("DATABASE_HOST", required=True),
-        "PORT": int(get_env("DATABASE_PORT", default="5432")),
+        'URL': 'DATABASE_URL',
+        'NAME': 'PGDATABASE',
+        'USER': 'PGUSER',
+        'PASSWORD': 'PGPASSWORD',
+        'HOST': 'PGHOST',
+        'PORT': PGPORT,
     }
 }
 
