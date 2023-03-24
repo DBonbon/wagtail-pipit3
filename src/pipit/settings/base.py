@@ -111,11 +111,11 @@ WSGI_APPLICATION = "pipit.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "postgresql://postgres:0vJbCtZuoi9y0HJ7Gpiy@containers-us-west-77.railway.app:7514/railway",
-        "USER": 'postgres',
-        "PASSWORD": '0vJbCtZuoi9y0HJ7Gpiy',
-        "HOST": 'containers-us-west-77.railway.app',
-        "PORT": '7514',
+        "NAME": get_env("DATABASE_NAME", required=True),
+        "USER": get_env("DATABASE_USER", required=True),
+        "PASSWORD": get_env("DATABASE_PASSWORD", required=True),
+        "HOST": get_env("DATABASE_HOST", required=True),
+        "PORT": int(get_env("DATABASE_PORT", default="5432")),
     }
 }
 

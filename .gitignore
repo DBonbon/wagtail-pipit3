@@ -57,3 +57,5 @@ htmlcov
 
 # Mypy
 .mypy_cache
+
+rquirements.txt
