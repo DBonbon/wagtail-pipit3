@@ -19,7 +19,7 @@ DEBUG = False
 # This is when debug is off, else django wont allow you to visit the site
 ALLOWED_HOSTS = get_env("ALLOWED_HOSTS", required=True).split(",")
 
-INTERNAL_IPS = ["127.0.0.1"]
+INTERNAL_IPS = ["127.0.0.1", "vercel.app", "wagtail-pipit3.vercel.app"]
 
 
 # Application definition

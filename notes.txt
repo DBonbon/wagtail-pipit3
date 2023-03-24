@@ -38,3 +38,14 @@ docker rm -f 6f391dc79a4c --> add the container id to be deleted
 docker-compose exec python ./manage.py makemigrations
 docker-compose exec python ./manage.py migrate
 docker-compose exec python ./manage.py makemigrations && docker-compose exec python ./manage.py migrate
+
+
+
+ansible -i stages/stage.yml webservers -m ping
+stage1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
